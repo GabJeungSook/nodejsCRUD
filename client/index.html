@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northwind CRUD</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="">
+    <div class="border border-gray-300 p-4">
+        <div class="grid grid-cols-12 space-x-3">
+            <div class="col-span-8 bg-green-400 py-3 px-6 rounded-md">
+                <div class="flex justify-between">
+                    <div>
+                        <button id="create_order" class="disabled:bg-green-700 rounded-md bg-green-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Create Order</button>
+                        <button id="view_order" class="disabled:bg-green-700 rounded-md bg-green-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">View Order</button>
+                    </div>
+                    <div>
+                        <button id="cancel" class="rounded-md bg-red-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">Cancel</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 space-x-3 mt-3">
+                    <div>
+                        <div class="sm:col-span-3">
+                            <label for="customer-id" class="block text-sm font-medium leading-6 text-gray-900">Customer ID</label>
+                            <div>
+                              <input type="text" name="customer-id" disabled id="customer-id" autocomplete="customer-id" class="block w-full rounded-md border-0 px-3 disabled:bg-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                          </div>
+                          <div class="sm:col-span-3 mt-4">
+                            <label for="customer-company" class="block text-sm font-medium leading-6 text-gray-900">Company</label>
+                            <div>
+                              <input type="text" name="customer-company" disabled id="customer-company" autocomplete="customer-company" class="block w-full rounded-md border-0 px-3 disabled:bg-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                          </div>
+                          <div class="sm:col-span-3 mt-4">
+                            <label for="customer-city" class="block text-sm font-medium leading-6 text-gray-900">City</label>
+                            <div>
+                              <input type="text" name="customer-city" disabled id="customer-city" autocomplete="customer-city" class="block w-full rounded-md border-0 px-3 disabled:bg-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                          </div>
+                          <div class="sm:col-span-3 mt-4">
+                            <label for="customer_names" class="block text-sm font-medium leading-6 text-gray-900">Customer</label>
+                            <div>
+                              <select id="customer_names" name="customer_names" autocomplete="customer_names" class="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                                <option value="" disabled selected> -- SELECT -- </option>
+                              </select>
+                            </div>
+                          </div>
+                    </div>
+                    <div>
+                        <div class="sm:col-span-3">
+                            <label for="order_id" class="block text-sm font-medium leading-6 text-gray-900">Order ID</label>
+                            <div>
+                              <input type="number" name="order_id" id="order_id" autocomplete="order_id" class="block w-full rounded-md border-0 px-3 disabled:bg-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                          </div>
+                          <div class="sm:col-span-3 mt-4">
+                            <label for="order-date" class="block text-sm font-medium leading-6 text-gray-900">Order Date</label>
+                            <div>
+                              <input type="text" name="order-date" disabled id="order-date" autocomplete="order-date" class="block w-full rounded-md border-0 px-3 disabled:bg-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                          </div>
+                          <div class="sm:col-span-3 mt-4">
+                            <label for="shipment-date" class="block text-sm font-medium leading-6 text-gray-900">Shipment Date</label>
+                            <div>
+                              <input type="text" name="shipment-date" disabled id="shipment-date" autocomplete="shipment-date" class="block w-full rounded-md border-0 px-3 disabled:bg-gray-300 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                            </div>
+                          </div>
+                          <div class="sm:col-span-3 mt-8 flex justify-end">
+                            <div>
+                                <button id="save_order" class="disabled:bg-green-300 rounded-md bg-green-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Save Order</button>
+                            </div>
+                          </div>
+                          
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-4 bg-gray-200 px-6 pb-2 rounded-md">
+                <div class="grid grid-cols-4 space-x-3">
+                    <div class="sm:col-span-3 mt-2">
+                        <label for="product_list" class="block text-sm font-medium leading-6 text-gray-900">Product</label>
+                        <div>
+                          <select id="product_list" name="product_list" autocomplete="product_list" class="block w-full rounded-md border-0 px-3 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-green-600 sm:max-w-md sm:text-sm sm:leading-6">
+                            <option value="" disabled selected> -- SELECT -- </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="sm:col-span-1">
+                        <button id="add_product" class="mt-8 disabled:bg-green-300 rounded-md bg-green-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Add Product</button>
+                      </div>
+                </div>
+                <div class="mt-3 px-1 py-3">
+                    <div>
+                        <div class="flex space-x-3">
+                          <label for="product_id" class="w-1/2 block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Product Code</label>
+                          <div class="mt-2 sm:col-span-2 sm:mt-0 flex justify-center w-full">
+                            <input type="text" name="product_id" id="product_id" autocomplete="product_id" class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex space-x-3 mt-2">
+                          <label for="product_quantity" class="w-1/2 block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Quantity</label>
+                          <div class="mt-2 sm:col-span-2 sm:mt-0 flex justify-center w-full">
+                            <input type="number" name="product_quantity" id="product_quantity" autocomplete="product_quantity" class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex space-x-3 mt-2">
+                          <label for="product_price" class="w-1/2 block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Unit Price</label>
+                          <div class="mt-2 sm:col-span-2 sm:mt-0 flex justify-center w-full">
+                            <input type="text" name="product_price" id="product_price" autocomplete="product_price" class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex space-x-3 mt-2">
+                          <label for="product_discount" class="w-1/2 block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Discount</label>
+                          <div class="mt-2 sm:col-span-2 sm:mt-0 flex justify-center w-full">
+                            <input type="number" name="product_discount" id="product_discount" autocomplete="product_discount" class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                          </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex space-x-3 mt-2">
+                          <label for="product_amount" class="w-1/2 block text-sm font-medium leading-6 text-gray-900 sm:pt-1.5">Total Amount</label>
+                          <div class="mt-2 sm:col-span-2 sm:mt-0 flex justify-center w-full">
+                            <input type="text" name="product_amount" id="product_amount" autocomplete="product_amount" class="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6">
+                          </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-end mr-5">
+                        <button id="save_product" hidden class="mt-4 disabled:bg-green-300 rounded-md bg-green-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600">Save Product</button>
+                    </div>
+                </div>
+    </div>
+    </div>
+    <div class="grid grid-cols-12 space-x-3 mt-5">
+        <div class="col-span-12 bg-gray-400 px-6 pb-2 rounded-md">
+        <table id="products_table" class="min-w-full divide-y divide-gray-200 mt-5">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Product Code
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Product Description
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Quantity
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Unit Price
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Amount
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Discount Percentage
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Discount Value
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Discounted Amount
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+            </tbody>
+        </table>
+        <div class="grid grid-cols-12 space-x-3 mt-5">
+            <div class="col-span-12 bg-gray-800 px-6 rounded-md">
+                <div class="flex justify-end space-x-8 py-5">
+                    <div class="my-auto text-gray-50 text-md font-semibold">
+                        Total Amount : ₱ <span id="total_amount" class="text-white"></span>
+                    </div>
+                    <div class="my-auto text-gray-50 text-md font-semibold">
+                        Total Discount : ₱ <span id="total_discount" class="text-white"></span>
+                    </div>
+                    <div class="my-auto text-gray-50 text-md font-semibold">
+                        Total Discounted Amount : ₱ <span id="total_discounted_amount" class="text-white"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+       
+    </div>
+    <script src="index.js">
+
+    </script>
+</body>
+</html>
