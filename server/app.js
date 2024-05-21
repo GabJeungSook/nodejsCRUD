@@ -63,6 +63,17 @@ app.get('/getLatestOrder', (request, response) => {
 });
 
 //get orders
+app.get('/getOrder/:id', (request, response) => {
+    const {id} = request.params;
+    const db = DBServices.getDBServiceInstance();
+    const result = db.getCustomerOrder(id);
+    
+    result
+    .then(data => response.json({data: data}))
+    .catch(err => console.log(err));
+});
+
+//get orders
 // app.get('/getOrders/:id', (request, response) => {
 //     const {id} = request.params;
 //     const db = DBServices.getDBServiceInstance();

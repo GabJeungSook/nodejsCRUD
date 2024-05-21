@@ -88,6 +88,14 @@ document.addEventListener('DOMContentLoaded', function () {
         orderId.disabled = false;
     });
 
+    orderId.addEventListener('change', function () {
+        fetch('http://localhost:8080/getOrder/' + orderId.value)
+        .then(response => response.json())
+        .then(data => { 
+             displayCustomerOrder(data);
+        });
+    });
+
         cancelTransaction.addEventListener('click', function () {
             //window.location.reload();
             if (confirm('Are you sure you want to cancel this transaction?')) {
@@ -441,6 +449,35 @@ function getLatestOrderId(data)
 {
     const orderId = document.getElementById('order_id');
     orderId.value = data['data'][0].maxOrderId + 1;
+}
+
+function displayCustomerOrder(data)
+{
+    document.getElementById('customer-id').value = data['data'][0].cid;
+    document.getElementById('customer-company').value = data['data'][0].com;
+    document.getElementById('customer-city').value = data['data'][0].city;
+    document.getElementById('customer_names').value = data['data'][0].cid;
+    const orderDate = new Date(data['data'][0].od);
+    const formattedDate = orderDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+
+    document.getElementById('order-date').value = formattedDate;
+    const shipDate = new Date(data['data'][0].sd);
+    const formattedShipDate = shipDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+    });
+    document.getElementById('shipment-date').value = formattedShipDate;
 }
 
 // function displayCustomerOrders(data)

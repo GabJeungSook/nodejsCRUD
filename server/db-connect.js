@@ -106,22 +106,24 @@ class DBServices {
             console.log(error);
         }
     }
-    // async getCustomerOrders(id)
-    // {
-    //     try {
-    //         const response = await new Promise((resolve, reject) => {
-    //             const query = "SELECT o.id, o.order_date, o.ship_address, o.ship_city FROM orders o JOIN customers c ON o.customer_id = c.id WHERE c.id = ?;";
-    //             db.query(query, [id], (err, results) => {
-    //                 if (err) reject(new Error(err.message));
-    //                 resolve(results);
-    //             });
-    //         });
-    //         return response;
-    //     } catch (error)
-    //     {
-    //         console.log(error);
-    //     }
-    // }
+
+    async getCustomerOrder(id)
+    {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                
+                const query = "SELECT o.customer_id AS cid, c.company AS com, c.city as city, o.ship_city AS sc, o.order_date AS od, o.shipped_date AS sd, CONCAT(c.first_name, ' ', c.last_name) AS name FROM orders o INNER JOIN customers c ON o.customer_id = c.id WHERE o.id = ?;";
+                db.query(query, [id], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+            return response;
+        } catch (error)
+        {
+            console.log(error);
+        }
+    }
 
     // async getOrderProducts(id)
     // {
