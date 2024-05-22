@@ -93,7 +93,17 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch('http://localhost:8080/getOrder/' + orderId.value)
         .then(response => response.json())
         .then(data => { 
-             displayCustomerOrder(data);
+            if(data['data'].length === 0)
+            {
+                alert('No order found');
+                //fire cancel transaction
+                orderId.value = '';
+                return;
+            }
+            else
+            {
+                displayCustomerOrder(data);
+            }
         });
     });
 
