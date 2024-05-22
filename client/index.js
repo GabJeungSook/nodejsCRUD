@@ -101,6 +101,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert('No order found');
                 //fire cancel transaction
                 orderId.value = '';
+                orderDate.value = '';
+                shipDate.value = '';
+                customerId.value = '';
+                customerNames.value = '';
+                customerCompany.value = '';
+                customerCity.value = '';
                 return;
             }
             else
