@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         orderDate.value = getFormattedDate(0);
         shipDate.value = getFormattedDate(5);
         cancelTransaction.hidden = false;
-        saveOrder.hidden = false;
+        // saveOrder.hidden = false;
 
         fetch('http://localhost:8080/getLatestOrder')
         .then(response => response.json())
@@ -87,6 +87,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
      viewOrder.addEventListener('click', function () {
         orderId.disabled = false;
+        createOrder.disabled = true;
+        viewOrder.disabled = true;
+        cancelTransaction.hidden = false;
     });
 
     orderId.addEventListener('change', function () {
@@ -113,6 +116,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 customerNames.disabled = true;
                 createOrder.disabled = false;
                 viewOrder.disabled = false;
+                orderId.disabled = true;
                 orderId.value = '';
                 orderDate.value = '';
                 shipDate.value = '';
@@ -195,6 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const product_price = productPrice.value;
         const product_quantity = productQuantity.value;
         const product_discount = productDiscount.value;
+        saveOrder.hidden = false;
 
         let existingRow = null;
 
@@ -317,6 +322,11 @@ document.addEventListener('DOMContentLoaded', function () {
           
             deleteButton.addEventListener('click', function() {
                 //confirm delete
+                if(rows.length === 1)
+                {
+                    saveOrder.hidden = true;
+                }
+
                 if (confirm('Are you sure you want to delete this product?')) {
                     row.remove();
                     let totalAmount = 0;
