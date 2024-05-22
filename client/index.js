@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const cancelTransaction = document.getElementById('cancel');
     const saveOrder = document.getElementById('save_order');
     const addProduct = document.getElementById('add_product');
+    var saveProduct = document.getElementById('save_product');
 
     //product
     const products = document.getElementById('product_list'); 
@@ -174,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     //add product to table
     addProduct.addEventListener('click', function () {
-        var saveProduct = document.getElementById('save_product');
+     
         const table = document.getElementById('products_table');
         const tbody = table.getElementsByTagName('tbody')[0];
         const rows = tbody.getElementsByTagName('tr');
