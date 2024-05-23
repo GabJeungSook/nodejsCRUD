@@ -96,27 +96,4 @@ app.post('/insertCustomerOrder', (request, response) => {
 })
 
 
-//get orders
-// app.get('/getOrders/:id', (request, response) => {
-//     const {id} = request.params;
-//     const db = DBServices.getDBServiceInstance();
-//     const result = db.getCustomerOrders(id);
-    
-//     result
-//     .then(data => response.json({data: data}))
-//     .catch(err => console.log(err));
-// });
-
-//get products
-// app.get('/getProducts/:id', (request, response) => {
-//     const {id} = request.params;
-//     const db = DBServices.getDBServiceInstance();
-//     const result = db.getOrderProducts(id);
-    
-//     result
-//     .then(data => response.json({data: data}))
-//     .catch(err => console.log(err));
-// });
-
-
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}`));

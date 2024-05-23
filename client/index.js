@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
             if(data['data'].length === 0)
             {
                 alert('No order found');
-                //fire cancel transaction
                 orderId.value = '';
                 orderDate.value = '';
                 shipDate.value = '';
@@ -122,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
         cancelTransaction.addEventListener('click', function () {
-            //window.location.reload();
             if (confirm('Are you sure you want to clear this form?')) {
                 customerNames.disabled = true;
                 createOrder.disabled = false;
@@ -333,7 +331,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
           
             deleteButton.addEventListener('click', function() {
-                //confirm delete
                 if(rows.length === 1)
                 {
                     saveOrder.hidden = true;
@@ -493,13 +490,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 _total_discounted_price.textContent = '0.00';
 
                 alert('Order saved successfully');
-
-            // Clear the form or show a success message
             })
             .catch((error) => {
                 alert('Error saving order');
             console.error('Error inserting customer', error);
-            // Show an error message
             });
 
         }
@@ -599,7 +593,6 @@ function displayCustomerData(data)
 function displayProduct(data)
 {
     document.getElementById('product_id').value = data['data'][0].product_code;
-    //convert data['data'][0].list_price to currency format
     var price = parseFloat(data['data'][0].list_price);
     var formattedPrice = price.toFixed(2);
     formattedPrice = formattedPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -642,89 +635,77 @@ function displayCustomerOrder(data)
     document.getElementById('shipment-date').value = formattedShipDate;
 }
 
-function displayOrderDetails(data)
-{
-    const product_table = document.getElementById('products_table');
+// function displayOrderDetails(data)
+// {
+//     const product_table = document.getElementById('products_table');
 
-    if(data['data'].length === 0)
-    {
-        product_table.innerHTML = '<thead class="bg-gray-50">'
-                        +'<tr>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product ID</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Code</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Description</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Quantity</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Unit Price</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Amount</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Percentage</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Value</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Amount</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
-                        +'</tr>'
-                        +'</thead>' 
-                        +'<tbody class="bg-white divide-y divide-gray-200">'
-                        + '<tr><td colspan="11" class="text-center p-4 text-semibold text-md italic">No products found</td></tr>'
-                        +'</tbody>';
-        return;
-    }
+//     if(data['data'].length === 0)
+//     {
+//         product_table.innerHTML = '<thead class="bg-gray-50">'
+//                         +'<tr>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product ID</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Code</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Description</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Quantity</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Unit Price</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Amount</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Percentage</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Value</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Amount</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
+//                         +'</tr>'
+//                         +'</thead>' 
+//                         +'<tbody class="bg-white divide-y divide-gray-200">'
+//                         + '<tr><td colspan="11" class="text-center p-4 text-semibold text-md italic">No products found</td></tr>'
+//                         +'</tbody>';
+//         return;
+//     }
 
-    product_table.innerHTML = '<thead class="bg-gray-50">'
-                        +'<tr>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product ID</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Code</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Description</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Quantity</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Unit Price</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Amount</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Percentage</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Value</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Amount</th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
-                        +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
-                        +'</tr>'
-                        +'</thead>'
-                        +'<tbody class="bg-white divide-y divide-gray-200">';
-                        for (const product of data['data']) {
-                            const row = document.createElement('tr');
-                            const product_id = product.pid;
-                            const product_code = product.pc;
-                            const product_description = product.pn;
-                            const product_quantity = product.q;
-                            const product_price = product.up;
-                            const product_amount = product.amount;
-                            const product_discount = product.d;
-                            const discount_value = product.discount_value;
-                            const discounted_amount = product.discounted_amount;
-                            const discount_percent = product_discount + ' %';
-                            product_table.innerHTML += '<tr>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_id+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_code+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_description+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_quantity+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_price+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_amount+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+discount_percent+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+discount_value+'</td>'
-                            +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+discounted_amount+'</td>'
-                            +'</tr>';
-                            
-                            // row.innerHTML = `
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${product_id}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${product_code}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${product_description}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${product_quantity}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${product_price}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${product_amount}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${discount_percent}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${discount_value}</td>
-                            // <td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">${discounted_amount}</td>
-                            // `;
-                            // product_table.appendChild(row);
-                        }
-                        product_table.innerHTML += '</tbody>';
+//     product_table.innerHTML = '<thead class="bg-gray-50">'
+//                         +'<tr>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product ID</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Code</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Product Description</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Quantity</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Unit Price</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Amount</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Percentage</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Value</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider">Discount Amount</th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
+//                         +'<th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-800 uppercase tracking-wider"></th>'
+//                         +'</tr>'
+//                         +'</thead>'
+//                         +'<tbody class="bg-white divide-y divide-gray-200">';
+//                         for (const product of data['data']) {
+//                             const row = document.createElement('tr');
+//                             const product_id = product.pid;
+//                             const product_code = product.pc;
+//                             const product_description = product.pn;
+//                             const product_quantity = product.q;
+//                             const product_price = product.up;
+//                             const product_amount = product.amount;
+//                             const product_discount = product.d;
+//                             const discount_value = product.discount_value;
+//                             const discounted_amount = product.discounted_amount;
+//                             const discount_percent = product_discount + ' %';
+//                             product_table.innerHTML += '<tr>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_id+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_code+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_description+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_quantity+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_price+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+product_amount+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+discount_percent+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+discount_value+'</td>'
+//                             +'<td class="pl-4 pr-3 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">'+discounted_amount+'</td>'
+//                             +'</tr>';
+                    
+//                         }
+//                         product_table.innerHTML += '</tbody>';
 
-}
+// }
 
 function displayOrderDetails(data) {
     const product_table = document.getElementById('products_table');
@@ -843,205 +824,3 @@ function displayOrderDetails(data) {
     }
     product_table.appendChild(tbody);
 }
-
-// function displayCustomerOrders(data)
-// {
-//     const table = document.getElementById('order_table');
-//     const product_table = document.getElementById('products_table');
-//     const order_count_label = document.getElementById('order_count');
-//     const product_count_label = document.getElementById('product_count');
-
-//     if(data['data'].length === 0)
-//     {
-//         table.innerHTML = '<thead class="bg-gray-50">'
-//                         +'<tr>'
-//                         +'<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Order ID</th>'
-//                         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Order Date</th>'
-//                         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Ship Country</th>'
-//                         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Ship City</th>'
-//                         +'</tr>'
-//                         +'</thead>' 
-//                         +'<tbody class="divide-y divide-gray-200 bg-white">'
-//                         + '<tr><td colspan="4" class="text-center p-4 text-semibold text-md italic">No orders found</td></tr>'
-//                         +'</tbody>';
-//         order_count_label.textContent = "---";
-//         product_table.innerHTML = '<thead class="bg-gray-50">'
-//                         +'<tr>'
-//                         +'<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Product ID</th>'
-//                         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Unit Price</th>'
-//                         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quantity</th>'
-//                         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">% Discount</th>'
-//                         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Amount</th>'
-//                         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discount</th>'
-//                         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discounted Value</th>'
-//                         +'</tr>'
-//                         +'</thead>' 
-//                         +'<tbody class="divide-y divide-gray-200 bg-white">'
-//                         + '<tr><td colspan="7" class="text-center p-4 text-semibold text-md italic">No products found</td></tr>'
-//                         +'</tbody>';
-//         product_count_label.textContent = "---";
-//         return;
-//     }
-//         table.innerHTML = ''; 
-//         product_table.innerHTML = '<thead class="bg-gray-50">'
-//         +'<tr>'
-//         +'<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Product ID</th>'
-//         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Unit Price</th>'
-//         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quantity</th>'
-//         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">% Discount</th>'
-//         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Amount</th>'
-//         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discount</th>'
-//         +'<th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discounted Value</th>'
-//         +'</tr>'
-//         +'</thead>' 
-//         +'<tbody class="divide-y divide-gray-200 bg-white">'
-//         + '<tr><td colspan="7" class="text-center p-4 text-semibold text-md italic">No orders selected</td></tr>'
-//         +'</tbody>';
-//         // Create table header only when data is present
-//         const thead = document.createElement('thead');
-//         thead.classList.add('bg-gray-50');
-//         const headerRow = document.createElement('tr');
-//         headerRow.innerHTML = `
-//         <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Order ID</th>
-//         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Order Date</th>
-//         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Ship Country</th>
-//         <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Ship City</th>
-//       `;
-//       thead.appendChild(headerRow);
-//       table.appendChild(thead);
-//       const tbody = document.createElement('tbody');
-//       let selectedRow = null;
-//         for (const order of data['data']) {
-//             const orderDate = new Date(order.order_date);
-//             const formattedDate = orderDate.toLocaleDateString('en-US', {
-//             month: 'long', 
-//             day: 'numeric',  
-//             year: 'numeric'   
-//             });
-
-//             const row = tbody.insertRow();
-//     row.addEventListener('click', function() {
-//         if (selectedRow) {
-//             selectedRow.classList.remove('bg-gray-300'); 
-//           }
-//           selectedRow = this;
-//           this.classList.add('bg-gray-300');
-//           //call function 
-//           fetch('http://localhost:8080/getProducts/' + order.id)
-//           .then(response => response.json())
-//           .then(data => { 
-//             displayOrderProducts(data);
-//           });
-//       });
-
-
-            
-//     for (let i = 0; i < 4; i++) { 
-//         const cell = row.insertCell(i);
-//         cell.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-sm', 'font-medium', 'text-gray-900');
-//         cell.textContent =  (i === 1) ? formattedDate : (i === 2) ? order.ship_address : (i === 3) ? order.ship_city : order.id;
-//       }
-//     }
-//         table.appendChild(tbody);
-//         order_count_label.textContent = "There are "+ data['data'].length + " sales order record(s) for Customer ID: " + customerIds.value;
-// }
-
-// function displayOrderProducts(data)
-// {
-//     const table = document.getElementById('products_table');
-//     const product_count_label = document.getElementById('product_count');
-//     if(data['data'].length === 0)
-//     {
-//         table.innerHTML = '<thead class="bg-gray-50">'
-//         +'<tr>'
-//         +'<th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Product ID</th>'
-//         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Unit Price</th>'
-//         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quantity</th>'
-//         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">% Discount</th>'
-//         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Amount</th>'
-//         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discount</th>'
-//         +'<th scope="col" class="px-3 pr-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discounted Value</th>'
-//         +'</tr>'
-//         +'</thead>' 
-//         +'<tbody class="divide-y divide-gray-200 bg-white">'
-//         + '<tr><td colspan="7" class="text-center p-4 text-semibold text-md italic">No products found</td></tr>'
-//         +'</tbody>';
-//         product_count_label.textContent = "---";
-//         return;
-       
-//     }
-//     table.innerHTML = '';   
-
-//     const thead = document.createElement('thead');
-//     thead.classList.add('bg-gray-50');
-//     const headerRow = document.createElement('tr');
-//     headerRow.innerHTML = `
-//     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Product ID</th>
-//     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Unit Price</th>
-//     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Quantity</th>
-//     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">% Discount</th>
-//     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Amount</th>
-//     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discount</th>
-//     <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Discounted Value</th>
-//     `;
-//     thead.appendChild(headerRow);
-//     table.appendChild(thead);
-//     const tbody = document.createElement('tbody');
-//     var total_amount = 0;
-//         var total_discount_price = 0;
-//         var total_discounted_value = 0;
-//     for (const product of data['data']) {
-//         const row = tbody.insertRow();
-
-//         var u_price = parseFloat(product.unit_price);
-//         var formattedPrice = u_price.toFixed(2);
-//         formattedPrice = formattedPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-//         var discount = parseInt(product.discount);
-//         var formattedDiscount = discount.toFixed(2);
-//         formattedDiscount = formattedDiscount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-//         var quantity = parseInt(product.quantity);
-//         var amount = u_price * quantity;
-//         var formattedAmount = amount.toFixed(2);
-//         formattedAmount = formattedAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-//         var total_discount = (discount / 100) * amount;
-//         var formattedTotalDiscount = total_discount.toFixed(2);
-//         formattedTotalDiscount = formattedTotalDiscount.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-//         var discounted_value = amount - total_discount;
-//         var formattedDiscountedValue = discounted_value.toFixed(2);
-//         formattedDiscountedValue = formattedDiscountedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        
-        
-//         total_amount += amount;
-//         total_discount_price += total_discount;
-//         total_discounted_value += discounted_value;
-
-//         for (let i = 0; i < 7; i++) { 
-          
-
-//             const cell = row.insertCell(i);
-//             cell.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-sm', 'font-medium', 'text-gray-900', 'text-right');
-//             cell.textContent =  (i === 1) ? '₱ '+ formattedPrice : (i === 2) ? quantity : (i === 3) ? formattedDiscount : 
-//             (i === 4) ? '₱ '+ formattedAmount : (i === 5) ? '₱ '+ formattedTotalDiscount : (i === 6) ? '₱ '+ formattedDiscountedValue : product.id;
-//         }
-//     }
-
-//     total = total_amount.toFixed(2);
-//     total = total.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//     total_discount_price = total_discount_price.toFixed(2);
-//     total_discount_price = total_discount_price.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//     total_discounted_value = total_discounted_value.toFixed(2);
-//     total_discounted_value = total_discounted_value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-//     var t_amount = document.getElementById('total_amount');
-//     t_amount.value = '₱ '+ total;
-//     var t_discount = document.getElementById('total_discount_price');
-//     t_discount.value = '₱ '+ total_discount_price;
-//     var t_discounted_value = document.getElementById('total_discounted_price');
-//     t_discounted_value.value = '₱ '+ total_discounted_value;
-//     table.appendChild(tbody);
-//     product_count_label.textContent = "There are "+ data['data'].length + " product(s) for Order ID: " + data['data'][0].order_id;
-// }

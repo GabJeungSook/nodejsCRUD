@@ -173,24 +173,6 @@ class DBServices {
 
     }
 
-    // async getOrderProducts(id)
-    // {
-    //     try {
-    //         const response = await new Promise((resolve, reject) => {
-    //             const query = "SELECT o.id as 'order_id', p.id, od.unit_price, od.quantity, od.discount FROM orders o "
-    //                            +"JOIN order_details od ON od.order_id = o.id JOIN products p ON p.id = od.product_id WHERE o.id = ?;";
-    //             db.query(query, [id], (err, results) => {
-    //                 if (err) reject(new Error(err.message));
-    //                 resolve(results);
-    //             });
-    //         });
-    //         return response;
-    //     } catch (error)
-    //     {
-    //         console.log(error);
-    //     }
-    // }
-
 }
 
 module.exports = DBServices;
