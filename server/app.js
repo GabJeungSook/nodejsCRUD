@@ -75,9 +75,9 @@ app.get('/getOrder/:id', (request, response) => {
 
 //insert order
 app.post('/insertCustomerOrder', (request, response) => {
-    const {custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity} = request.body;
+
     const db = DBServices.getDBServiceInstance();
-    const result = db.insertCustomerOrder(custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity);
+    const result = db.insertCustomerOrder(request.body);
 
     result
     .then(data => response.json({data: data}))

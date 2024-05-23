@@ -125,7 +125,7 @@ class DBServices {
         }
     }
 
-    async insertCustomerOrder(custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity)
+    async insertCustomerOrder({custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity, products})
     {
         try {
             const response = await new Promise((resolve, reject) => {
@@ -135,11 +135,24 @@ class DBServices {
                     resolve(results);
                 });
             });
-            return response;
+
+            const response2 = await new Promise((resolve, reject) => {
+                const query2 = `INSERT INTO order_details (order_id, product_id, quantity, unit_price, discount) VALUES ${products.map((p)=>{
+                    return `(${orderId},${p.product_id},${p.product_quantity},${p.price},${p.discount})`
+                })}`;
+                db.query(query2, (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+
+            return {response, response2};
         } catch (error)
         {
             console.log(error);
         }
+
+
     }
 
     // async getOrderProducts(id)

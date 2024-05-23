@@ -231,12 +231,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const discount_amount = amount - value;
             const discounted_amount = '₱ ' + discount_amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             const product_amount = '₱ ' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            existingRow.cells[2].textContent = newQuantity;
-            existingRow.cells[3].textContent = product_price;
-            existingRow.cells[4].textContent = product_amount;
-            existingRow.cells[5].textContent = product_discount + ' %';
-            existingRow.cells[6].textContent = discount_value;
-            existingRow.cells[7].textContent = discounted_amount;
+            existingRow.cells[3].textContent = newQuantity;
+            existingRow.cells[4].textContent = product_price;
+            existingRow.cells[5].textContent = product_amount;
+            existingRow.cells[6].textContent = product_discount + ' %';
+            existingRow.cells[7].textContent = discount_value;
+            existingRow.cells[8].textContent = discounted_amount;
 
         } else {
             // If the product doesn't exist, add a new row
@@ -257,9 +257,10 @@ document.addEventListener('DOMContentLoaded', function () {
             const cell6 = row.insertCell(5);
             const cell7 = row.insertCell(6);
             const cell8 = row.insertCell(7);
+            const cell9 = row.insertCell(8);
 
-            const cellEdit = row.insertCell(8);
-            const cellDelete = row.insertCell(9);
+            const cellEdit = row.insertCell(9);
+            const cellDelete = row.insertCell(10);
             const editButton = document.createElement('button');
             editButton.textContent = 'Edit';
             editButton.classList.add('rounded-md', 'bg-green-800', 'px-3', 'py-2', 'text-sm', 'font-semibold', 'text-white','shadow-sm'); // Add your desired button styles
@@ -275,13 +276,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 products.value = product_id;
                 saveProduct.hidden = false;
                 productQuantity.disabled = false;
-                productQuantity.value = cell3.textContent;
+                productQuantity.value = cell4.textContent;
                 productDiscount.disabled = false;
-                productDiscount.value = cell6.textContent.replace(' %', '');
+                productDiscount.value = cell7.textContent.replace(' %', '');
                 
                 productId.value = product_code;
-                productPrice.value = cell4.textContent;
-                productAmount.value = cell8.textContent;
+                productPrice.value = cell5.textContent;
+                productAmount.value = cell9.textContent;
 
                  // Remove any previous event listener to prevent multiple updates
                 saveProduct.replaceWith(saveProduct.cloneNode(true));
@@ -295,12 +296,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     const discounted_amount = '₱ ' + discount_amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     const product_amount = '₱ ' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     
-                    cell3.textContent = productQuantity.value;
-                    cell4.textContent = productPrice.value;
-                    cell5.textContent = product_amount;
-                    cell6.textContent = productDiscount.value + ' %';
-                    cell7.textContent = discount_value;
-                    cell8.textContent = discounted_amount;
+                    cell4.textContent = productQuantity.value;
+                    cell5.textContent = productPrice.value;
+                    cell6.textContent = product_amount;
+                    cell7.textContent = productDiscount.value + ' %';
+                    cell8.textContent = discount_value;
+                    cell9.textContent = discounted_amount;
                     saveProduct.hidden = true;
     
     
@@ -310,9 +311,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     let totalDiscountedAmount = 0;
                     for (let i = 0; i < rows.length; i++) {
                         const row = rows[i];
-                        const amount = parseFloat(row.cells[4].textContent.replace('₱ ', '').replace(',', ''));
-                        const discount = parseFloat(row.cells[6].textContent.replace('₱ ', '').replace(',', ''));
-                        const discountedAmount = parseFloat(row.cells[7].textContent.replace('₱ ', '').replace(',', ''));
+                        const amount = parseFloat(row.cells[5].textContent.replace('₱ ', '').replace(',', ''));
+                        const discount = parseFloat(row.cells[7].textContent.replace('₱ ', '').replace(',', ''));
+                        const discountedAmount = parseFloat(row.cells[8].textContent.replace('₱ ', '').replace(',', ''));
                         totalAmount += amount;
                         totalDiscount += discount;
                         totalDiscountedAmount += discountedAmount;
@@ -340,9 +341,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     let totalDiscountedAmount = 0;
                     for (let i = 0; i < rows.length; i++) {
                         const row = rows[i];
-                        const amount = parseFloat(row.cells[4].textContent.replace('₱ ', '').replace(',', ''));
-                        const discount = parseFloat(row.cells[6].textContent.replace('₱ ', '').replace(',', ''));
-                        const discountedAmount = parseFloat(row.cells[7].textContent.replace('₱ ', '').replace(',', ''));
+                        const amount = parseFloat(row.cells[5].textContent.replace('₱ ', '').replace(',', ''));
+                        const discount = parseFloat(row.cells[7].textContent.replace('₱ ', '').replace(',', ''));
+                        const discountedAmount = parseFloat(row.cells[8].textContent.replace('₱ ', '').replace(',', ''));
                         totalAmount += amount;
                         totalDiscount += discount;
                         totalDiscountedAmount += discountedAmount;
@@ -357,15 +358,15 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
 
-
-            cell1.textContent = product_code;
-            cell2.textContent = product_description;
-            cell3.textContent = product_quantity;
-            cell4.textContent = product_price;
-            cell5.textContent = product_amount;
-            cell6.textContent = discount_percent;
-            cell7.textContent = discount_value;
-            cell8.textContent = discounted_amount;
+            cell1.textContent = product_id;
+            cell2.textContent = product_code;
+            cell3.textContent = product_description;
+            cell4.textContent = product_quantity;
+            cell5.textContent = product_price;
+            cell6.textContent = product_amount;
+            cell7.textContent = discount_percent;
+            cell8.textContent = discount_value;
+            cell9.textContent = discounted_amount;
 
             cell1.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-center', 'text-sm', 'font-medium', 'text-gray-900');
             cell2.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-center', 'text-sm', 'font-medium', 'text-gray-900');
@@ -375,6 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
             cell6.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-center', 'text-sm', 'font-medium', 'text-gray-900');
             cell7.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-center', 'text-sm', 'font-medium', 'text-gray-900');
             cell8.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-center', 'text-sm', 'font-medium', 'text-gray-900');
+            cell9.classList.add('whitespace-nowrap', 'py-4', 'pl-4', 'pr-3', 'text-center', 'text-sm', 'font-medium', 'text-gray-900');
         }
 
         // Calculate the total amount, total discount, and total discounted amount
@@ -383,8 +385,8 @@ document.addEventListener('DOMContentLoaded', function () {
         let totalDiscountedAmount = 0;
         for (let i = 0; i < rows.length; i++) {
             const row = rows[i];
-            const amount = parseFloat(row.cells[4].textContent.replace('₱ ', '').replace(',', ''));
-            const discount = parseFloat(row.cells[6].textContent.replace('₱ ', '').replace(',', ''));
+            const amount = parseFloat(row.cells[5].textContent.replace('₱ ', '').replace(',', ''));
+            const discount = parseFloat(row.cells[7].textContent.replace('₱ ', '').replace(',', ''));
             const discountedAmount = parseFloat(row.cells[7].textContent.replace('₱ ', '').replace(',', ''));
             totalAmount += amount;
             totalDiscount += discount;
@@ -412,18 +414,48 @@ document.addEventListener('DOMContentLoaded', function () {
 
       
 
-         orderDate = convertDateTime(orderDate);  
+        orderDate = convertDateTime(orderDate);  
         shipDate = convertDateTime(shipDate);
 
 
         const table = document.getElementById('products_table');
+        //get table row data
+        const tbody = table.getElementsByTagName('tbody')[0];
+        const rows = tbody.getElementsByTagName('tr');
+        const products = [];
+        for (let i = 0; i < rows.length; i++) {
+            const row = rows[i];
+            const product_id = row.cells[0].textContent;
+            const product_code = row.cells[1].textContent;
+            const product_description = row.cells[2].textContent;
+            const product_quantity = row.cells[3].textContent;
+            const product_price = row.cells[4].textContent;
+            const product_amount = row.cells[5].textContent;
+            const product_discount = row.cells[6].textContent;
+            const discount_value = row.cells[7].textContent;
+            const discounted_amount = row.cells[8].textContent;
+
+            const price = parseFloat(row.cells[4].textContent.replace('₱ ', '').replace(',', ''));
+            const discount = parseFloat(row.cells[6].textContent.replace('₱ ', '').replace(',', ''));
+            products.push({
+                product_id,
+                product_code,
+                product_description,
+                product_quantity,
+                price,
+                product_amount,
+                discount,
+                discount_value,
+                discounted_amount
+            });
+        }
 
         fetch('http://localhost:8080/insertCustomerOrder/', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity}),
+            body: JSON.stringify({ custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity, products}),
         })
         .then((response) => response.json())
         .then((data) => {
