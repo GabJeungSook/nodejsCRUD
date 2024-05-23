@@ -73,6 +73,24 @@ class DBServices {
         }
     }
 
+    
+    async getCustomerOrderData(id)
+    {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT od.product_id AS pid, p.product_code AS pc, p.product_name AS pn, od.quantity AS q, od.unit_price AS up, od.discount AS d FROM order_details od INNER JOIN products p ON od.product_id = p.id WHERE od.order_id = ?";
+                db.query(query, [id], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+            return response;
+        } catch (error)
+        {
+            console.log(error);
+        }
+    }
+
     async getProductData(id)
     {
         try {

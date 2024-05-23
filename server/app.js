@@ -41,6 +41,17 @@ app.get('/getCustomer/:id', (request, response) => {
     .catch(err => console.log(err));
 });
 
+//get order details
+app.get('/getOrderDetails/:id', (request, response) => {
+    const {id} = request.params;
+    const db = DBServices.getDBServiceInstance();
+    const result = db.getCustomerOrderData(id);
+    
+    result
+    .then(data => response.json({data: data}))
+    .catch(err => console.log(err));
+});
+
 app.get('/getProductData/:id', (request, response) => {
     const {id} = request.params;
     const db = DBServices.getDBServiceInstance();
