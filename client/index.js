@@ -397,6 +397,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
         clearProductFields();
     });
+
+
+    saveOrder.addEventListener('click', function () {
+        const custId = customerId.value;
+        const custName = customerNames.options[customerNames.selectedIndex].text;
+        const custComp = customerCompany.value;
+        const custCity = customerCity.value;
+        const orderId = document.getElementById('order_id').value;
+        var orderDate = document.getElementById('order-date').value;
+        var shipDate = document.getElementById('shipment-date').value;
+        const shipCountry = 'Philippines';
+        const shipCity = custCity;
+
+      
+
+         orderDate = convertDateTime(orderDate);  
+        shipDate = convertDateTime(shipDate);
+
+
+        const table = document.getElementById('products_table');
+
+        fetch('http://localhost:8080/insertCustomerOrder/', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity}),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+        console.log('Customer inserted successfully', data);
+        // Clear the form or show a success message
+        })
+        .catch((error) => {
+        console.error('Error inserting customer', error);
+        // Show an error message
+        });
+
+    });
 })
 
 
@@ -420,6 +459,32 @@ function clearProductFields()
     productQuantity.disabled = true;
     productDiscount.disabled = true;
 }
+
+function convertDateTime(input) {
+    // Parse the input date string
+    const dateTimeParts = input.split(' at ');
+    const datePart = dateTimeParts[0].trim();
+    const timePart = dateTimeParts[1].trim();
+    
+    // Create a new Date object from the parsed parts
+    const date = new Date(`${datePart} ${timePart}`);
+  
+    // Function to pad single digit numbers with leading zero
+    const pad = (num) => String(num).padStart(2, '0');
+  
+    // Extract the components from the Date object
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1); // Months are zero-based
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+  
+    // Format the output string
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  
+    return formattedDateTime;
+  }
 
 function loadCustomerNames(data)
 {

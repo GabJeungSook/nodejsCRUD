@@ -125,6 +125,23 @@ class DBServices {
         }
     }
 
+    async insertCustomerOrder(custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity)
+    {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "INSERT INTO orders (customer_id, ship_name, order_date, shipped_date, ship_address, ship_city) VALUES (?, ?, ?, ?, ?, ?);";
+                db.query(query, [custId, custName, orderDate, shipDate, shipCountry, shipCity], (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+            return response;
+        } catch (error)
+        {
+            console.log(error);
+        }
+    }
+
     // async getOrderProducts(id)
     // {
     //     try {

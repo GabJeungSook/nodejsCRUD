@@ -73,6 +73,18 @@ app.get('/getOrder/:id', (request, response) => {
     .catch(err => console.log(err));
 });
 
+//insert order
+app.post('/insertCustomerOrder', (request, response) => {
+    const {custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity} = request.body;
+    const db = DBServices.getDBServiceInstance();
+    const result = db.insertCustomerOrder(custId, custName, custComp, custCity, orderId, orderDate, shipDate, shipCountry, shipCity);
+
+    result
+    .then(data => response.json({data: data}))
+    .catch(err => console.log(err));
+})
+
+
 //get orders
 // app.get('/getOrders/:id', (request, response) => {
 //     const {id} = request.params;
