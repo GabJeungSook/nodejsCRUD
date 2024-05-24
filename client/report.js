@@ -41,7 +41,35 @@ function generate() {
     });
 }
 
+function getFormattedDate(date_to_convert) {
+    const date = new Date(date_to_convert);
+    const options = { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: true };
+    const formattedDate = date.toLocaleString('en-US', options);
+  
+    return formattedDate;
+  }
+
 function loadOrders(data)
 {
-    console.log(data);
+    //load data into table
+    const table = document.querySelector('table tbody');
+    //add data to table
+    if(data.length === 0)
+    {
+        table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
+        return;
+    }
+    let tableHtml = "";
+    data.forEach(function ({order_id, name, order_date, shipped_date, ship_address, ship_city, ship_region}) {
+        tableHtml += `<tr class="divide-x divide-gray-200">`;
+        tableHtml += `<td class="whitespace-nowrap p-4 text-sm text-gray-500">${order_id}</td>`;
+        tableHtml += `<td class="whitespace-nowrap p-4 text-sm text-gray-500">${name}</td>`;
+        tableHtml += `<td class="whitespace-nowrap p-4 text-sm text-gray-500">${getFormattedDate(order_date)}</td>`;
+        tableHtml += `<td class="whitespace-nowrap p-4 text-sm text-gray-500">${getFormattedDate(shipped_date)}</td>`;
+        tableHtml += `<td class="whitespace-nowrap p-4 text-sm text-gray-500">${ship_address}</td>`;
+        tableHtml += `<td class="whitespace-nowrap p-4 text-sm text-gray-500">${ship_city}</td>`;
+        tableHtml += `<td class="whitespace-nowrap p-4 text-sm text-gray-500">${ship_region}</td>`;
+        tableHtml += "</tr>";
+    });
+    table.innerHTML = tableHtml;
 }
