@@ -5,15 +5,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    const print = document.getElementById('print');
     const generatePDF = document.getElementById('generate_pdf');
+    const filterDates = document.getElementById('filter_dates');
 
-    print.addEventListener('click', function () {
-        printReport();
-    });
+    const from_date = document.getElementById('from_date');
+    const to_date = document.getElementById('to_date');
+
+    // print.addEventListener('click', function () {
+    //     printReport();
+    // });
 
     generatePDF.addEventListener('click', function () {
         generate();
+    });
+
+    filterDates.addEventListener('click', function () {
+        fetch('http://localhost:8080/getOrdersByDate/' + from_date.value + '/' + to_date.value)
+        .then(response => response.json())
+        .then(data => loadOrders(data['data']));
+
+
     });
 })
 
@@ -56,7 +67,7 @@ function loadOrders(data)
     //add data to table
     if(data.length === 0)
     {
-        table.innerHTML = "<tr><td class='no-data' colspan='5'>No Data</td></tr>";
+        table.innerHTML = "<tr><td class='whitespace-nowrap p-4 text-sm text-gray-500 text-center italic text-lg' colspan='7'>No Data</td></tr>";
         return;
     }
     let tableHtml = "";

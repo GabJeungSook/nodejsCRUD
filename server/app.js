@@ -104,6 +104,15 @@ app.get('/getOrders', (request, response) => {
     .then(data => response.json({data: data}))
     .catch(err => console.log(err));
 });
-
+//get orders by date
+app.get('/getOrdersByDate/:from_date/:to_date', (request, response) => {
+    const {from_date, to_date} = request.params;
+    const db = DBServices.getDBServiceInstance();
+    const result = db.getOrdersByDate(from_date, to_date);
+    
+    result
+    .then(data => response.json({data: data}))
+    .catch(err => console.log(err));
+});
 
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}`));

@@ -187,6 +187,22 @@ class DBServices {
         }
     }
 
+    async getOrdersByDate(from, to) {
+        try {
+            const response = await new Promise((resolve, reject) => {
+                const query = "SELECT o.id AS order_id, CONCAT(c.first_name, ' ', c.last_name) AS name, o.order_date AS order_date, o.shipped_date AS shipped_date, o.ship_address AS ship_address, o.ship_city AS ship_city, o.ship_country_region AS ship_region FROM orders o INNER JOIN customers c ON c.id = o.customer_id WHERE o.order_date BETWEEN ? AND ?;";
+                db.query(query,[from, to],  (err, results) => {
+                    if (err) reject(new Error(err.message));
+                    resolve(results);
+                });
+            });
+            return response;
+        } catch (error)
+        {
+            console.log(error);
+        }
+    }
+
 
 }
 
