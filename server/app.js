@@ -95,5 +95,15 @@ app.post('/insertCustomerOrder', (request, response) => {
     .catch(err => console.log(err));
 })
 
+//get orders
+app.get('/getOrders', (request, response) => {
+    const db = DBServices.getDBServiceInstance();
+
+    const result = db.getAllOrders();
+    result
+    .then(data => response.json({data: data}))
+    .catch(err => console.log(err));
+});
+
 
 app.listen(process.env.PORT, () => console.log(`Server is running on port ${process.env.PORT}`));

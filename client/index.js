@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const cancelTransaction = document.getElementById('cancel');
     const saveOrder = document.getElementById('save_order');
     const addProduct = document.getElementById('add_product');
+    const viewReport = document.getElementById('report_view');
     var saveProduct = document.getElementById('save_product');
 
     //product
@@ -91,6 +92,10 @@ document.addEventListener('DOMContentLoaded', function () {
         viewOrder.disabled = true;
         cancelTransaction.hidden = false;
     });
+
+    viewReport.addEventListener('click', function() {
+        window.location.href = "../client/report.html";
+    })
 
     orderId.addEventListener('change', function () {
         fetch('http://localhost:8080/getOrder/' + orderId.value)
